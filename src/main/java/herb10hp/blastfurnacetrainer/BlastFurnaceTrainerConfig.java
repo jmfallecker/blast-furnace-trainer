@@ -27,14 +27,32 @@ package herb10hp.blastfurnacetrainer;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("BlastFurnaceTrainer")
 public interface BlastFurnaceTrainerConfig extends Config
 {
+
+	@ConfigSection(
+			position = 0,
+			name = "Object Highlights",
+			description = "Enable/disable highlighted objects"
+	)
+	String objectHightlights = "objectHighlights";
+
+	@ConfigSection(
+			position = 1,
+			name = "Notification Settings",
+			description = "Enable/disable notifications"
+	)
+	String notifications = "notifications";
+
 	@ConfigItem(
-		keyName = "showCrafting",
-		name = "Highlight Crafting",
-		description = "Configures whether or not to display red/green clickboxes on pipes, drive belt and cogs."
+			keyName = "showCrafting",
+			name = "Highlight Crafting",
+			description = "Configures whether or not to display red/green clickboxes on pipes, drive belt and cogs.",
+			section = "objectHighlights",
+			position = 2
 	)
 	default boolean showCrafting()
 	{
@@ -44,7 +62,9 @@ public interface BlastFurnaceTrainerConfig extends Config
 	@ConfigItem(
 			keyName = "showStove",
 			name = "Highlight Stove",
-			description = "Configures whether or not to display red/yellow/green clickboxes on the stove."
+			description = "Configures whether or not to display red/yellow/green clickboxes on the stove.",
+			section = "objectHighlights",
+			position = 0
 	)
 	default boolean showStove()
 	{
@@ -54,10 +74,20 @@ public interface BlastFurnaceTrainerConfig extends Config
 	@ConfigItem(
 			keyName = "showPump",
 			name = "Highlight Pump",
-			description = "Configures whether or not to display green clickboxes on the pump when it is available.."
+			description = "Configures whether or not to display green clickboxes on the pump when it is available.",
+			section = "objectHighlights",
+			position = 1
 	)
 	default boolean showPump()
 	{
 		return true;
 	}
+
+	@ConfigItem(
+			keyName = "notifyEmptyStove",
+			name = "Notify on Low Coke",
+			description = "Shows a notification when the stove is low on coke.",
+			section = "notifications"
+	)
+	default boolean notifyEmptyStove() { return true; }
 }

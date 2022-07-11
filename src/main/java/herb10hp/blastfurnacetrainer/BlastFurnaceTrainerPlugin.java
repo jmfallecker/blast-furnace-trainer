@@ -35,6 +35,7 @@ import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.Notifier;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -81,10 +82,16 @@ public class BlastFurnaceTrainerPlugin extends Plugin
     private GameObject stoveFull;
 
     @Inject
+    private Notifier notifier;
+
+    @Inject
     private OverlayManager overlayManager;
 
     @Inject
     private BlastFurnaceClickBoxOverlay clickBoxOverlay;
+
+    @Inject
+    private BlastFurnaceTrainerConfig config;
 
     @Inject
     private Client client;
@@ -99,6 +106,7 @@ public class BlastFurnaceTrainerPlugin extends Plugin
     protected void shutDown()
     {
         overlayManager.remove(clickBoxOverlay);
+
         westPipesFixed = null;
         eastPipesFixed = null;
         westPipesBroken = null;
@@ -163,6 +171,9 @@ public class BlastFurnaceTrainerPlugin extends Plugin
                 break;
 
             case STOVE:
+                if (config.notifyEmptyStove()) {
+                    notifier.notify("The Blast Furnace Stove is needs Coke.");
+                }
                 stoveEmpty = gameObject;
                 break;
 
