@@ -172,7 +172,7 @@ public class BlastFurnaceTrainerPlugin extends Plugin
 
             case STOVE:
                 if (config.notifyEmptyStove()) {
-                    notifier.notify("The Blast Furnace Stove is needs Coke.");
+                    notifier.notify("The Blast Furnace Stove needs Coke.");
                 }
                 stoveEmpty = gameObject;
                 break;
